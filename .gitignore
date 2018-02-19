@@ -1,0 +1,9 @@
+.idea
+out
+excl
+src/TTTDictionaryADT.java
+src/PlayTTT.java
+src/PosPlay.java
+*.gif
+*.iml
+
