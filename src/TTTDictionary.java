@@ -16,7 +16,7 @@ public class TTTDictionary implements TTTDictionaryADT {
     private int hash(String sequence) {
         int hash = 0;
 
-        // XOR each char into a rotating 32 bit integer
+        // Add each char into a rotating 32 bit integer
         for(char c : sequence.toCharArray()) {
             hash = rightRotate(hash * 21, 5) + c * 3;
         }
