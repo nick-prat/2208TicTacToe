@@ -5,25 +5,27 @@ import java.util.LinkedList;
 
 public class TTTDictionary implements TTTDictionaryADT {
 
+    // Actually hashtable setup for separate chaining
     private ArrayList<LinkedList<TTTRecord>> hashTable;
-    private int hashTableCapacity;
+
+    // Binary rotate
+    private int rightRotate(int val, int dist) {
+        return (val >> dist) | (val << (Integer.SIZE - dist));
+    }
 
     private int hash(String sequence) {
-        if(sequence.length() == 0) {
-            return 0;
+        int hash = 0;
+
+        // XOR each char into a rotating 32 bit integer
+        for(char c : sequence.toCharArray()) {
+            hash = rightRotate(hash * 21, 5) + c * 3;
         }
 
-        int hash = sequence.charAt(0);
-        for(int i = 1; i < sequence.length(); i++) {
-            hash = (hash >> 7) | (hash << (Integer.SIZE - 7));
-            hash = hash ^ (21 * sequence.charAt(i));
-        }
-        hash %= hashTable.size();
-        return Math.abs(hash);
+        // Ensure value is positive and less than the hash table length
+        return Math.abs(hash) % hashTable.size();
     }
 
     public TTTDictionary(int size) {
-        System.out.println("Creating hash table: " + size);
         hashTable = new ArrayList<>(Collections.nCopies(size, null));
     }
 
@@ -41,7 +43,6 @@ public class TTTDictionary implements TTTDictionaryADT {
                 }
             }
             hashTable.get(bucket).add(newRecord);
-            System.out.println("Collision");
             return 1;
         }
     }
@@ -52,7 +53,7 @@ public class TTTDictionary implements TTTDictionaryADT {
             for(TTTRecord record : hashTable.get(bucket)) {
                 if(record.getConfiguration().equals(config)) {
                     hashTable.get(bucket).remove(record);
-                    break;
+                    return;
                 }
             }
         }

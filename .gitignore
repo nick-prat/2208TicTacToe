@@ -4,6 +4,7 @@ excl
 src/TTTDictionaryADT.java
 src/PlayTTT.java
 src/PosPlay.java
+src/TestDict.java
 *.gif
 *.iml
 

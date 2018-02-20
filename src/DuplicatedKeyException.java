@@ -1,2 +1,1 @@
-public class DuplicatedKeyException extends Throwable {
-}
+public class DuplicatedKeyException extends Exception {}

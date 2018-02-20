@@ -1,5 +1,1 @@
-public class InexistentKeyException extends Throwable {
-
-    
-
-}
+public class InexistentKeyException extends Exception {}
